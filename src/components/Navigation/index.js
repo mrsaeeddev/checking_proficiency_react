@@ -18,7 +18,6 @@ const NavigationAuth = () =>
     <li><Link to={routes.HOME}>Home</Link></li>
     <li><Link to={routes.ABOUT}>About Us</Link></li>
     <li><Link to={routes.CONTACT}>Contact Us</Link></li>
-    <li><Link to={routes.ACCOUNT}>Account</Link></li>
     <li><SignOutButton /></li>
   </ul>
 

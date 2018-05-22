@@ -16,6 +16,10 @@ const INITIAL_STATE = {
   title: '',
   content: '',
   hint: '',
+  normalState: true,
+ filterState: false,
+  searchedVal:'',
+filterData: [],
   arrdata: [],
   error: null,
 };
@@ -23,6 +27,7 @@ class HomePage extends Component {
   constructor(props) {
     super(props);
           this.state = { ...INITIAL_STATE };
+          this.searchByName = this.searchByName.bind(this);
   }
 
 onSubmit = (event) => {
@@ -56,6 +61,28 @@ onSubmit = (event) => {
 
     event.preventDefault();
   }
+    searchByName(text) {
+      console.log(text)
+        let arrayToPushedData = this.state.arrdata;
+        this.setState({ searchedVal: text })
+        arrayToPushedData = arrayToPushedData.filter((data) => data.title.toLowerCase().indexOf(text) !== -1);
+        console.log(arrayToPushedData)
+        if (text == '') {
+            this.setState({
+                normalState: true,
+                filterState: false
+            })
+
+        }
+        else {
+            this.setState({
+                filterState: true,
+                normalState: false,
+                filterData: arrayToPushedData,
+            })
+        }
+    }
+
 componentWillMount()
 {
             let database = db.ref('/notes')
@@ -76,6 +103,9 @@ componentWillMount()
       hint,
       arrdata,
       error,
+      normalState,
+      filterState,
+      filterData,
     } = this.state;
 
     const isInvalid =
@@ -85,8 +115,16 @@ componentWillMount()
 
     return (
       <div>
-              <h1>Add your notes here</h1>
+          <h1>Add your notes here</h1>
+          <input
+          name="searchedVal"    
+          onChange={(text) => this.searchByName(text)} 
+          placeholder="Search notes here"
+          />
       <form onSubmit={this.onSubmit}>
+
+<br />
+<br />
         <input
           value={title}
           onChange={event => this.setState(updateByPropertyName('title', event.target.value))}
@@ -117,7 +155,17 @@ componentWillMount()
         { error && <p>{error.message}</p> }
       </form>
       <div>
-        {this.state.arrdata.map((v,i) => {
+        {this.state.normalState && this.state.arrdata.map((v,i) => {
+          return (
+          <div key={i}>
+          <p>{v.title}</p>
+          <p>{v.content}</p>
+          <p>{v.hint}</p>
+          </div>)
+        })}
+      </div>
+      <div>
+        {this.state.filterState && this.state.filterData.map((v,i) => {
           return (
           <div key={i}>
           <p>{v.title}</p>
