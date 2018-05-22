@@ -18,9 +18,6 @@ import './index.css';
 const App = () =>
   <Router>
     <div className="app">
-      
-
-      <hr/>
 
       <Route exact path={routes.LANDING} component={() => <SignInPage />} />
       <Route exact path={routes.SIGN_UP} component={() => <SignUpPage />} />
@@ -28,7 +25,7 @@ const App = () =>
       <Route exact path={routes.PASSWORD_FORGET} component={() => <PasswordForgetPage />} />
       <Route exact path={routes.HOME} component={() => <HomePage />} />
       <Route exact path={routes.ACCOUNT} component={() => <AccountPage />} />
-      <hr/>
+    
 
     </div>
   </Router>

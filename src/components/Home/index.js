@@ -16,6 +16,7 @@ const INITIAL_STATE = {
   title: '',
   content: '',
   hint: '',
+  arrdata: [],
   error: null,
 };
 class HomePage extends Component {
@@ -29,6 +30,7 @@ onSubmit = (event) => {
       title,
       content,
       hint,
+      arrdata,
     } = this.state;
 
     const {
@@ -54,13 +56,25 @@ onSubmit = (event) => {
 
     event.preventDefault();
   }
+componentWillMount()
+{
+            let database = db.ref('/notes')
+        database.on('child_added', snap => {
+            let arrayToPushedData = this.state.arrdata;
+            arrayToPushedData.push(snap.val());
+            this.setState({
+                arrdata: arrayToPushedData
+            })
 
+        })
+}
   render() {
 
       const {
       title,
       content,
       hint,
+      arrdata,
       error,
     } = this.state;
 
@@ -102,6 +116,16 @@ onSubmit = (event) => {
         <button disabled={isInvalid} type="submit">Add Note</button>
         { error && <p>{error.message}</p> }
       </form>
+      <div>
+        {this.state.arrdata.map((v,i) => {
+          return (
+          <div key={i}>
+          <p>{v.title}</p>
+          <p>{v.content}</p>
+          <p>{v.hint}</p>
+          </div>)
+        })}
+      </div>
       </div>
     );
   }
