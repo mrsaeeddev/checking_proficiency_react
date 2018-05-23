@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { FormControl,Button,FormGroup,Jumbotron } from 'react-bootstrap';
 import { auth } from '../../firebase';
 import * as routes from '../../constants/routes';
 
@@ -59,21 +58,20 @@ class PasswordForgetForm extends Component {
     const isInvalid = email === '';
 
     return (
-      <Jumbotron style={formStyles}>
-      <FormGroup onSubmit={this.onSubmit}>
-        <FormControl
+      
+      <form onSubmit={this.onSubmit}>
+        <input
           value={this.state.email}
           onChange={event => this.setState(updateByPropertyName('email', event.target.value))}
           type="text"
           placeholder="Email Address"
         />
-        <Button disabled={isInvalid} type="submit">
+        <button disabled={isInvalid} type="submit">
           Reset My Password
-        </Button>
+        </button>
 
         { error && <p>{error.message}</p> }
-      </FormGroup>
-      </Jumbotron>
+      </form>
     );
   }
 }

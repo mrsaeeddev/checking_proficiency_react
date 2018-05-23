@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { SignInLink } from '../SignIn';
-import { FormControl, Button, FormGroup, Jumbotron } from 'react-bootstrap';
-
 import { auth, db } from '../../firebase';
 import * as routes from '../../constants/routes';
 
@@ -89,9 +87,9 @@ class SignUpForm extends Component {
       email === '';
 
     return (
-      <Jumbotron  style={formStyles}>
-      <FormGroup  onSubmit={this.onSubmit}>
-        <FormControl
+
+      <form onSubmit={this.onSubmit}>
+        <input
           value={username}
           onChange={event => this.setState(updateByPropertyName('username', event.target.value))}
           type="text"
@@ -99,7 +97,7 @@ class SignUpForm extends Component {
         />
         <br />
         <br />
-        <FormControl
+        <input
           value={email}
           onChange={event => this.setState(updateByPropertyName('email', event.target.value))}
           type="text"
@@ -107,7 +105,7 @@ class SignUpForm extends Component {
         />
         <br />
         <br />
-        <FormControl
+        <input
           value={passwordOne}
           onChange={event => this.setState(updateByPropertyName('passwordOne', event.target.value))}
           type="password"
@@ -115,7 +113,7 @@ class SignUpForm extends Component {
         />
         <br />
         <br />
-        <FormControl
+        <input
           value={passwordTwo}
           onChange={event => this.setState(updateByPropertyName('passwordTwo', event.target.value))}
           type="password"
@@ -123,13 +121,13 @@ class SignUpForm extends Component {
         />
         <br />
         <br />
-        <Button  disabled={isInvalid} type="submit">
+        <button disabled={isInvalid} type="submit">
           Sign Up
-        </Button>
+        </button>
 
         {error && <p>{error.message}</p>}
-      </FormGroup>
-      </Jumbotron>
+      </form>
+
     );
   }
 }

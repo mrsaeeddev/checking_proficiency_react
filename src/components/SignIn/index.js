@@ -1,20 +1,9 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import { FormControl,Button,FormGroup,Jumbotron } from 'react-bootstrap';
 import { SignUpLink } from '../SignUp';
 import { PasswordForgetLink } from '../PasswordForget';
 import { auth } from '../../firebase';
 import * as routes from '../../constants/routes';
-
-const formStyles = {
-  width: 300,
-  margin: 0,
-  paddingTop: 50,
-  paddingLeft:10,
-  paddingRight: 10,
-  borderRadius: 15,
-
-}
 
 const SignInPage = ({ history }) =>
   <div>
@@ -76,9 +65,9 @@ class SignInForm extends Component {
       email === '';
 
     return (
-      <Jumbotron style={formStyles}>
-      <FormGroup responsive onSubmit={this.onSubmit}>
-        <FormControl
+
+      <form onSubmit={this.onSubmit}>
+        <input
           value={email}
           onChange={event => this.setState(updateByPropertyName('email', event.target.value))}
           type="text"
@@ -86,7 +75,7 @@ class SignInForm extends Component {
         />
         <br />
         <br />
-        <FormControl
+        <input
           value={password}
           onChange={event => this.setState(updateByPropertyName('password', event.target.value))}
           type="password"
@@ -94,13 +83,13 @@ class SignInForm extends Component {
         />
         <br />
         <br />
-        <Button disabled={isInvalid} type="submit">
+        <button disabled={isInvalid} type="submit">
           Sign In
-        </Button>
+        </button>
 
         {error && <p>{error.message}</p>}
-      </FormGroup>
-      </Jumbotron>
+      </form>
+
     );
   }
 }

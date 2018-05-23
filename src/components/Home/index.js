@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { FormControl, Button, FormGroup, Jumbotron } from 'react-bootstrap';
 import withAuthorization from '../Session/withAuthorization';
 import { db } from '../../firebase/firebase.js';
 import Navigation from '../Navigation';
@@ -9,14 +8,13 @@ const updateByPropertyName = (propertyName, value) => () => ({
 });
 
 const textareaStyle = {
-  width: 320,
+  width: 250,
   height: 150,
 }
 
 const formStyles = {
-  width: 340,
-  margin: 0,
-  paddingTop: 30,
+  width: 30,
+  margin:0,
   paddingLeft:10,
   paddingRight: 10,
   borderRadius: 15,
@@ -127,21 +125,17 @@ class HomePage extends Component {
 
     return (
       <div>
-        <FormControl
+        <input
           value={this.state.searchedVal}
           onChange={(text) => this.searchByName(text)}
           type="text"
           placeholder="Search here"
         />
-        <br />
-        <Jumbotron style={formStyles}>
+      
         <h3>Add your notes here</h3>
         
-        <FormGroup onSubmit={this.onSubmit}>
-
-          <br />
-          <br />
-          <FormControl
+        <form onSubmit={this.onSubmit}>
+          <input
             value={title}
             onChange={event => this.setState(updateByPropertyName('title', event.target.value))}
             type="text"
@@ -149,17 +143,17 @@ class HomePage extends Component {
           />
           <br />
           <br />
-          <FormControl
+          <textarea
             value={content}
             onChange={event => this.setState(updateByPropertyName('content', event.target.value))}
             type="text"
             placeholder="Enter content here"
             style={textareaStyle}
-          />
-      
+          >
+          </textarea>
           <br />
           <br />
-          <FormControl
+          <input
             value={hint}
             onChange={event => this.setState(updateByPropertyName('hint', event.target.value))}
             type="text"
@@ -167,10 +161,10 @@ class HomePage extends Component {
           />
           <br />
           <br />
-          <Button disabled={isInvalid} type="submit">Add Note</Button>
+          <button disabled={isInvalid} type="submit">Add Note</button>
           {error && <p>{error.message}</p>}
-        </FormGroup>
-        </Jumbotron>
+        </form>
+        <br />
         <div>
           {this.state.normalState && this.state.arrdata.map((v, i) => {
             return (
