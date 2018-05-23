@@ -1,12 +1,22 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
+import { FormControl,Button,FormGroup,Jumbotron } from 'react-bootstrap';
 import { auth } from '../../firebase';
 import * as routes from '../../constants/routes';
 
+const formStyles = {
+  width: 300,
+  margin: 0,
+  paddingTop: 50,
+  paddingLeft:10,
+  paddingRight: 10,
+  borderRadius: 15,
+
+}
+
 const PasswordForgetPage = () =>
   <div>
-    <h1>PasswordForget</h1>
+    <h3>PasswordForget</h3>
     <PasswordForgetForm />
   </div>
 
@@ -49,19 +59,21 @@ class PasswordForgetForm extends Component {
     const isInvalid = email === '';
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
+      <Jumbotron style={formStyles}>
+      <FormGroup onSubmit={this.onSubmit}>
+        <FormControl
           value={this.state.email}
           onChange={event => this.setState(updateByPropertyName('email', event.target.value))}
           type="text"
           placeholder="Email Address"
         />
-        <button disabled={isInvalid} type="submit">
+        <Button disabled={isInvalid} type="submit">
           Reset My Password
-        </button>
+        </Button>
 
         { error && <p>{error.message}</p> }
-      </form>
+      </FormGroup>
+      </Jumbotron>
     );
   }
 }

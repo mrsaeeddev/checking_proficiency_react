@@ -1,16 +1,23 @@
 import React, { Component } from 'react';
-import {
-  Link,
-  withRouter,
-} from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { SignInLink } from '../SignIn';
+import { FormControl, Button, FormGroup, Jumbotron } from 'react-bootstrap';
 
 import { auth, db } from '../../firebase';
 import * as routes from '../../constants/routes';
 
+const formStyles = {
+  width: 300,
+  margin: 0,
+  paddingTop: 50,
+  paddingLeft: 10,
+  paddingRight: 10,
+  borderRadius: 15,
+}
+
 const SignUpPage = ({ history }) =>
-  <div>
-    <h1>Register a new membership</h1>
+  <div className="center-inline" >
+    <h3>Register a new membership</h3>
     <SignUpForm history={history} />
     <SignInLink />
   </div>
@@ -82,45 +89,47 @@ class SignUpForm extends Component {
       email === '';
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
+      <Jumbotron  style={formStyles}>
+      <FormGroup  onSubmit={this.onSubmit}>
+        <FormControl
           value={username}
           onChange={event => this.setState(updateByPropertyName('username', event.target.value))}
           type="text"
           placeholder="Full Name"
         />
         <br />
-        <br/>
-        <input
+        <br />
+        <FormControl
           value={email}
           onChange={event => this.setState(updateByPropertyName('email', event.target.value))}
           type="text"
           placeholder="Email Address"
         />
         <br />
-        <br/>
-        <input
+        <br />
+        <FormControl
           value={passwordOne}
           onChange={event => this.setState(updateByPropertyName('passwordOne', event.target.value))}
           type="password"
           placeholder="Password"
         />
         <br />
-        <br/>
-        <input
+        <br />
+        <FormControl
           value={passwordTwo}
           onChange={event => this.setState(updateByPropertyName('passwordTwo', event.target.value))}
           type="password"
           placeholder="Confirm Password"
         />
         <br />
-        <br/>
-        <button disabled={isInvalid} type="submit">
+        <br />
+        <Button  disabled={isInvalid} type="submit">
           Sign Up
-        </button>
+        </Button>
 
-        { error && <p>{error.message}</p> }
-      </form>
+        {error && <p>{error.message}</p>}
+      </FormGroup>
+      </Jumbotron>
     );
   }
 }

@@ -1,14 +1,24 @@
 import React, { Component } from 'react';
-import { Link,withRouter } from 'react-router-dom';
-
+import { Link, withRouter } from 'react-router-dom';
+import { FormControl,Button,FormGroup,Jumbotron } from 'react-bootstrap';
 import { SignUpLink } from '../SignUp';
 import { PasswordForgetLink } from '../PasswordForget';
 import { auth } from '../../firebase';
 import * as routes from '../../constants/routes';
 
+const formStyles = {
+  width: 300,
+  margin: 0,
+  paddingTop: 50,
+  paddingLeft:10,
+  paddingRight: 10,
+  borderRadius: 15,
+
+}
+
 const SignInPage = ({ history }) =>
   <div>
-    <h1>Sign In to start your session</h1>
+    <h3>Sign In to start your session</h3>
     <SignInForm history={history} />
     <PasswordForgetLink />
     <SignUpLink />
@@ -17,6 +27,7 @@ const SignInPage = ({ history }) =>
 const updateByPropertyName = (propertyName, value) => () => ({
   [propertyName]: value,
 });
+
 
 const INITIAL_STATE = {
   email: '',
@@ -65,29 +76,31 @@ class SignInForm extends Component {
       email === '';
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
+      <Jumbotron style={formStyles}>
+      <FormGroup responsive onSubmit={this.onSubmit}>
+        <FormControl
           value={email}
           onChange={event => this.setState(updateByPropertyName('email', event.target.value))}
           type="text"
           placeholder="Email Address"
         />
-        <br/>
-        <br/>
-        <input
+        <br />
+        <br />
+        <FormControl
           value={password}
           onChange={event => this.setState(updateByPropertyName('password', event.target.value))}
           type="password"
           placeholder="Password"
         />
-        <br/>
-        <br/>
-        <button disabled={isInvalid} type="submit">
+        <br />
+        <br />
+        <Button disabled={isInvalid} type="submit">
           Sign In
-        </button>
+        </Button>
 
-        { error && <p>{error.message}</p> }
-      </form>
+        {error && <p>{error.message}</p>}
+      </FormGroup>
+      </Jumbotron>
     );
   }
 }
