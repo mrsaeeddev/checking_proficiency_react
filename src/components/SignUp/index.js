@@ -3,22 +3,19 @@ import { Link, withRouter } from 'react-router-dom';
 import { SignInLink } from '../SignIn';
 import { auth, db } from '../../firebase';
 import * as routes from '../../constants/routes';
+import styled from 'styled-components';
 
-const formStyles = {
-  width: 300,
-  margin: 0,
-  paddingTop: 50,
-  paddingLeft: 10,
-  paddingRight: 10,
-  borderRadius: 15,
-}
+const SignUpStyles = styled.div`
+margin: 0px auto;
+width: 400px;
+`
 
 const SignUpPage = ({ history }) =>
-  <div className="center-inline" >
+  <SignUpStyles>
     <h3>Register a new membership</h3>
     <SignUpForm history={history} />
     <SignInLink />
-  </div>
+  </SignUpStyles>
 
 const updateByPropertyName = (propertyName, value) => () => ({
   [propertyName]: value,

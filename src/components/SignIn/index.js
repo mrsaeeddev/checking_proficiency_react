@@ -4,14 +4,19 @@ import { SignUpLink } from '../SignUp';
 import { PasswordForgetLink } from '../PasswordForget';
 import { auth } from '../../firebase';
 import * as routes from '../../constants/routes';
+import styled from 'styled-components';
 
+const SignInStyles = styled.div`
+margin: 0px auto;
+width: 400px;
+`
 const SignInPage = ({ history }) =>
-  <div>
+  <SignInStyles>
     <h3>Sign In to start your session</h3>
     <SignInForm history={history} />
     <PasswordForgetLink />
     <SignUpLink />
-  </div>
+  </SignInStyles>
 
 const updateByPropertyName = (propertyName, value) => () => ({
   [propertyName]: value,
